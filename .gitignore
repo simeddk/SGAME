@@ -5,6 +5,8 @@
 # Visual Studio 2015 user specific files
 .vs/
 
+# *_BuiltData.uasset
+
 # Compiled Object files
 *.slo
 *.lo
