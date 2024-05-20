@@ -1,6 +1,7 @@
 #include "UIBlueprintFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
+#include "HttpModule.h"
 
 void UUIBlueprintFunctionLibrary::FindScreenEdgeLocationForWorldLocation(UObject* WorldContextObject, const FVector& InLocation, const float EdgePercent, FVector2D& OutScreenPosition, float& OutRotationAngleDegrees, bool& bIsOnScreen)
 {
