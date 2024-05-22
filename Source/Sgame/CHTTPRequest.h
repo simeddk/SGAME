@@ -20,8 +20,10 @@ public:
 	UFUNCTION(BlueprintCallable, Exec, Category = "HTTP")
 		void SendData(const FText& InUserName, const FText& InPhone1, const FText& InPhone2, const FText& InPhone3);
 
+
 private:
 	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
+	void OnRequestProgress(FHttpRequestPtr Request, int32 BytesSent, int32 BytesReceived);
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -37,7 +39,7 @@ private:
 		AActor* TestActor;
 
 private:
-	class FHttpModule* HttpModule;
+	//class FHttpModule* HttpModule;
 
 	//TArray<FString> Selected_SubjectString;
 };
