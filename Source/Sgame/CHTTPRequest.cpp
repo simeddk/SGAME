@@ -50,6 +50,9 @@ void ACHTTPRequest::SendData(const FText& InUserName, const FText& InPhone1, con
     const FText& phone3Text = InPhone3;
     JsonFieldObject->SetStringField("user_phone3", FString::Printf(TEXT("%s"), *phone3Text.ToString()));
 
+    JsonFieldObject->SetStringField("red_url", "https://sgaedu.co.kr/");
+    UE_LOG(LogTemp, Warning, TEXT("Redirection URL is https://sgaedu.co.kr/"));
+
     JsonFieldObject->SetNumberField("selected_branch", 14);
     //JsonFieldObject->SetStringField("selected_branch", "14"); //이것도 string일 필요가 있을까?
 
