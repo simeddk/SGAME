@@ -25,16 +25,16 @@ void ACHTTPRequest::SendData(const FText& InUserName, const FText& InPhone1, con
     TSharedRef<FJsonObject> JsonFieldObject = MakeShared<FJsonObject>();
 
     const FText& nameText = InUserName;
-    JsonFieldObject->SetStringField("user_name", "KKS"/*FString::Printf(TEXT("%s"), *nameText.ToString())*/);
+    JsonFieldObject->SetStringField("user_name", /*"KKS"*/FString::Printf(TEXT("%s"), *nameText.ToString()));
 
     const FText& phone1Text = InPhone1;
-    JsonFieldObject->SetStringField("user_phone1", "010"/*FString::Printf(TEXT("%s"), *phone1Text.ToString())*/);
+    JsonFieldObject->SetStringField("user_phone1", /*"010"*/FString::Printf(TEXT("%s"), *phone1Text.ToString()));
     
     const FText& phone2Text = InPhone2;
-    JsonFieldObject->SetStringField("user_phone2", "7587"/*FString::Printf(TEXT("%s"), *phone2Text.ToString())*/);
+    JsonFieldObject->SetStringField("user_phone2", /*"7587"*/FString::Printf(TEXT("%s"), *phone2Text.ToString()));
     
     const FText& phone3Text = InPhone3;
-    JsonFieldObject->SetStringField("user_phone3", "6244"/*FString::Printf(TEXT("%s"), *phone3Text.ToString())*/);
+    JsonFieldObject->SetStringField("user_phone3", /*"6244"*/FString::Printf(TEXT("%s"), *phone3Text.ToString()));
 
     JsonFieldObject->SetStringField("user_contents ", "");
     JsonFieldObject->SetStringField("selected_branch", "14");

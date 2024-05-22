@@ -20,7 +20,7 @@
 		},
 		{
 			"Name": "HttpHelper",
-			"Enabled": true,
+			"Enabled": false,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/d6e73d57925e4acf89649cea5b686e86"
 		}
 	]
