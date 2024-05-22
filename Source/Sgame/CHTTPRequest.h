@@ -27,8 +27,11 @@ private:
 	UPROPERTY(EditAnywhere)
 		FString URL;
 
+	//UPROPERTY(EditInstanceOnly)
+	//	TArray<FText> Selected_SubjectText;
+
 	UPROPERTY(EditInstanceOnly)
-		TArray<FText> Selected_SubjectText;
+		TArray<int32> Selected_SubjectNumber;
 
 	UPROPERTY(EditInstanceOnly)
 		AActor* TestActor;

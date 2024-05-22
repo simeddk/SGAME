@@ -61,10 +61,18 @@ void ACHTTPRequest::SendData(const FText& InUserName, const FText& InPhone1, con
     TArray< TSharedPtr<FJsonValue> > ItemsObj;
     
     //선택과목 배열 초기화
-    for (const FText& ItemData : Selected_SubjectText)
+   /* for (const FText& ItemData : Selected_SubjectText)
     {
         TSharedPtr<FJsonObject> ItemObj = MakeShareable(new FJsonObject);
         ItemObj->SetStringField(TEXT("value"), ItemData.ToString());
+
+        ItemsObj.Add(MakeShareable(new FJsonValueObject(ItemObj)));
+    }*/
+
+    for (const int32 ItemIndex : Selected_SubjectNumber)
+    {
+        TSharedPtr<FJsonObject> ItemObj = MakeShareable(new FJsonObject);
+        ItemObj->SetNumberField("value", ItemIndex);
 
         ItemsObj.Add(MakeShareable(new FJsonValueObject(ItemObj)));
     }
@@ -117,6 +125,6 @@ void ACHTTPRequest::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr
         case EHttpRequestStatus::Succeeded:                 errorMsg = "Succeeded";                 break;
     }
 
-    UE_LOG(LogTemp, Error, TEXT("Response Staus : %d"), *errorMsg);
+    UE_LOG(LogTemp, Error, TEXT("Response Staus : %s"), *errorMsg);
     UE_LOG(LogTemp, Error, TEXT("Response Code : %d"), Response->GetResponseCode());
 }
