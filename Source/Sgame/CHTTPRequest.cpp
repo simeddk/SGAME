@@ -16,7 +16,7 @@ void ACHTTPRequest::BeginPlay()
 
 void ACHTTPRequest::SendData(const FText& InUserName, const FText& InPhone1, const FText& InPhone2, const FText& InPhone3)
 {
-    //Http모듈이 이미 언리얼에 있었다니
+    //Http모듈. 멤버 변수로 획득 금지
     FHttpRequestRef Request = FHttpModule::Get().CreateRequest();
     Request->OnProcessRequestComplete().BindUObject(this, &ACHTTPRequest::OnResponseReceived);
     Request->OnRequestProgress().BindUObject(this, &ACHTTPRequest::OnRequestProgress);
@@ -36,14 +36,14 @@ void ACHTTPRequest::SendData(const FText& InUserName, const FText& InPhone1, con
     const FText& phone3Text = InPhone3;
     JsonFieldObject->SetStringField("user_phone3", /*"6244"*/FString::Printf(TEXT("%s"), *phone3Text.ToString()));
 
-    JsonFieldObject->SetStringField("user_contents ", "");
+    JsonFieldObject->SetStringField("user_contents", "");
     JsonFieldObject->SetStringField("selected_branch", "14");
     JsonFieldObject->SetStringField("red_url", "https://sgaedu.co.kr/");
-    JsonFieldObject->SetStringField("page_name", "https://sgaedu.co.kr/");
+    //JsonFieldObject->SetStringField("page_name", "NAME_None");
 
     //선택과목 배열화
     TArray< TSharedPtr<FJsonValue> > ItemsObj;
-    ItemsObj.Add(MakeShared<FJsonValueString>(TEXT("1")));
+    ItemsObj.Add(MakeShared<FJsonValueString>("1"));
     //for (const int32 ItemIndex : Selected_SubjectNumber)
     //{
     //    TSharedPtr<FJsonObject> ItemObj = MakeShareable(new FJsonObject);
@@ -56,7 +56,7 @@ void ACHTTPRequest::SendData(const FText& InUserName, const FText& InPhone1, con
     //SelectedSubjects.Add(MakeShared<FJsonValueString>(TEXT("1")));
     //JsonFieldObject->SetArrayField(TEXT("arr_selected_subject"), SelectedSubjects);
 
-    JsonFieldObject->SetArrayField(TEXT("arr_selected_subject"), ItemsObj);
+    JsonFieldObject->SetArrayField("arr_selected_subject", ItemsObj);
 
     //직렬화를 평문으로
     FString RequestBody;
@@ -71,7 +71,9 @@ void ACHTTPRequest::SendData(const FText& InUserName, const FText& InPhone1, con
     Request->SetVerb("POST");
     Request->SetHeader("Content-Type", "application/json");
     Request->SetContentAsString(RequestBody);
-    Request->ProcessRequest();
+    bool bSuceess = Request->ProcessRequest();
+
+    UE_LOG(LogTemp, Error, TEXT("Request result is %d"), bSuceess);
     
     //한글이 하도 깨져서 테스트용
     UKismetSystemLibrary::DrawDebugString(GetWorld(), FVector(0, 0, 88), *nameText.ToString(), TestActor, FLinearColor::White, 3.f);
@@ -92,6 +94,14 @@ void ACHTTPRequest::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr
 
     UE_LOG(LogTemp, Error, TEXT("Response Staus : %s"), *errorMsg);
     UE_LOG(LogTemp, Error, TEXT("Response Code : %d"), Response->GetResponseCode());
+
+    GLog->Log("<Response RESULT>>>>>>>>");
+    FString content = Response->GetContentAsString();
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *content);
+    GLog->Log("<<<<<<<<<Response RESULT>");
+
+    content = Response->GetHeader("user_name");
+    UE_LOG(LogTemp, Warning, TEXT("user_name : %s"), *content);
 }
 
 void ACHTTPRequest::OnRequestProgress(FHttpRequestPtr Request, int32 BytesSent, int32 BytesReceived)

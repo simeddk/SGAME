@@ -38,8 +38,4 @@ private:
 	UPROPERTY(EditInstanceOnly)
 		AActor* TestActor;
 
-private:
-	//class FHttpModule* HttpModule;
-
-	//TArray<FString> Selected_SubjectString;
 };
