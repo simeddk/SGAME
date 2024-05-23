@@ -18,7 +18,7 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable, Exec, Category = "HTTP")
-		void SendData(const FText& InUserName, const FText& InPhone1, const FText& InPhone2, const FText& InPhone3);
+		void SendData(const FText& InUserName, const FText& InPhone1, const FText& InPhone2, const FText& InPhone3, const FText& InAge, const FText& InAddress);
 
 
 private:
