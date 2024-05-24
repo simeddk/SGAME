@@ -23,7 +23,6 @@ public:
 
 private:
 	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
-	void OnRequestProgress(FHttpRequestPtr Request, int32 BytesSent, int32 BytesReceived);
 
 private:
 	UPROPERTY(EditAnywhere)
