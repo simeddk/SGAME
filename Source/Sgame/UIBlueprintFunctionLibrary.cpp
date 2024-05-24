@@ -81,3 +81,28 @@ void UUIBlueprintFunctionLibrary::FindScreenEdgeLocationForWorldLocation(UObject
 
 	OutScreenPosition = *ScreenPosition;
 }
+
+bool UUIBlueprintFunctionLibrary::PatternMatcher(FText InText, bool& OutIncludedSpecialCharacter, bool& bOutIncludedWhiteSpace)
+{
+	FRegexPattern SpecialPattern = FRegexPattern(TEXT("[{}/?.,;:|()*~`!^\\_+¦«<>@#$%&'""\\=\\]\\[]"));
+	FRegexPattern WhiteSpacePattern = FRegexPattern(TEXT("\\s"));
+	
+	FRegexMatcher SpecailMatcher(SpecialPattern, FString::Printf(TEXT("%s"), *InText.ToString()));
+	FRegexMatcher WhiteSpaceMatcher(WhiteSpacePattern, FString::Printf(TEXT("%s"), *InText.ToString()));
+
+	OutIncludedSpecialCharacter = SpecailMatcher.FindNext();
+	if (OutIncludedSpecialCharacter)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Included Special Character"));
+		return false;
+	}
+
+	bOutIncludedWhiteSpace = WhiteSpaceMatcher.FindNext();
+	if (bOutIncludedWhiteSpace)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Included White Space Character"));
+		return false;
+	}
+
+	return true;
+}
